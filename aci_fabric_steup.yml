@@ -14,8 +14,8 @@
         validate_certs: "{{ aci.validate_certs }}"
         serial: "{{ item.serial }}"
         node_id: "{{ item.id }}"
-        node_name: "{{ item.name }}"
-        node_type: "{{ item.type }}"
+        switch: "{{ item.name }}"
+        role: "{{ item.type }}"
         state: present
       loop: "{{ fabric_nodes }}"
       when: "'{{ item.id }}' in ['101', '201', '202', '102']"
