@@ -45,7 +45,7 @@
         ntp_server: "{{ ntp_server }}"
         preferred: true
         state: present
-        register: ntp_configuration
+      register: ntp_configuration
 
     - name: Display NTP configuration result
       debug:
