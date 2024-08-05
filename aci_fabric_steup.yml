@@ -25,16 +25,25 @@
       debug:
         msg: "{{ node_registration.results }}"
 
-    - name: Set NTP Server
-      cisco.aci.aci_ntp_provider:
+    - name: Setup NTP Policy
+      cisco.aci.aci_ntp_policy:
         host: "{{ aci.host }}"
         username: "{{ aci.username }}"
         password: "{{ aci.password }}"
-        validate_certs: "{{ aci.validate_certs }}"
-        ntp_servers:
-          - "{{ ntp_server }}"
+        name: my_ntp_policy
+        admin_state: enabled
         state: present
-      register: ntp_configuration
+
+    - name: Setup NTP Policy
+      cisco.aci.aci_ntp_server:
+        host: "{{ aci.host }}"
+        username: "{{ aci.username }}"
+        password: "{{ aci.password }}"
+        ntp_policy: my_ntp_policy
+        ntp_server: "{{ ntp_server }}"
+        preferred: true
+        state: present
+        register: ntp_configuration
 
     - name: Display NTP configuration result
       debug:
