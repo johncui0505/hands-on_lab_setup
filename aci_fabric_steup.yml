@@ -7,11 +7,12 @@
 
   tasks:
     - name: Register ACI Fabric Nodes
-      cisco.aci.aci_node:
+      cisco.aci.aci_fabric_node:
         host: "{{ aci.host }}"
         username: "{{ aci.username }}"
         password: "{{ aci.password }}"
         validate_certs: "{{ aci.validate_certs }}"
+        serial: "{{ item.serial }}"
         node_id: "{{ item.id }}"
         node_name: "{{ item.name }}"
         node_type: "{{ item.type }}"
@@ -25,7 +26,7 @@
         msg: "{{ node_registration.results }}"
 
     - name: Set NTP Server
-      cisco.aci.aci_ntp:
+      cisco.aci.aci_ntp_provider:
         host: "{{ aci.host }}"
         username: "{{ aci.username }}"
         password: "{{ aci.password }}"
