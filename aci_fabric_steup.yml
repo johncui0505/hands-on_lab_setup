@@ -1,0 +1,40 @@
+---
+- name: Register ACI Fabric Nodes and Configure NTP
+  hosts: localhost
+  gather_facts: no
+  vars_files:
+    - vars.yml
+
+  tasks:
+    - name: Register ACI Fabric Nodes
+      cisco.aci.aci_node:
+        host: "{{ aci.host }}"
+        username: "{{ aci.username }}"
+        password: "{{ aci.password }}"
+        validate_certs: "{{ aci.validate_certs }}"
+        node_id: "{{ item.id }}"
+        node_name: "{{ item.name }}"
+        node_type: "{{ item.type }}"
+        state: present
+      loop: "{{ fabric_nodes }}"
+      when: "'{{ item.id }}' in ['101', '201', '202', '102']"
+      register: node_registration
+
+    - name: Display node registration result
+      debug:
+        msg: "{{ node_registration.results }}"
+
+    - name: Set NTP Server
+      cisco.aci.aci_ntp:
+        host: "{{ aci.host }}"
+        username: "{{ aci.username }}"
+        password: "{{ aci.password }}"
+        validate_certs: "{{ aci.validate_certs }}"
+        ntp_servers:
+          - "{{ ntp_server }}"
+        state: present
+      register: ntp_configuration
+
+    - name: Display NTP configuration result
+      debug:
+        msg: "{{ ntp_configuration }}"

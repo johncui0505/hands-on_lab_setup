@@ -1,0 +1,22 @@
+# vars.yml
+aci:
+  host: 198.18.133.200
+  username: admin
+  password: C1sco12345
+  validate_certs: no
+
+fabric_nodes:
+  - id: 101
+    name: Leaf1
+    type: leaf
+  - id: 201
+    name: Spine1
+    type: spine
+  - id: 202
+    name: Spine2
+    type: spine
+  - id: 102
+    name: Leaf2
+    type: leaf
+
+ntp_server: 198.18.128.1
