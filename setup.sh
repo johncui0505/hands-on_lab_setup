@@ -12,6 +12,7 @@ cd hands-on_lab_setup
 # Install ACI Ansible modules
 ansible-galaxy collection install cisco.aci
 ansible-galaxy collection install cisco.nd
+ansible-galaxy collection install cisco.mso
 ansible-galaxy collection install community.general
 
 # Initial setup of ACI fabric
